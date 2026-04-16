@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Histórico de Análise - Independência App</title>
+<style>
+  body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; line-height: 1.6; padding: 2rem; max-width: 900px; margin: auto; color: #1e1e1e; background: #fafafa; }
+  h1, h2, h3 { color: #2c2420; }
+  blockquote { background: #fff; border-left: 4px solid #d4c8a0; padding: 1rem 1.5rem; margin: 1.5rem 0; font-style: italic; color: #4e4238; }
+  pre { background: #1e1e1e; color: #dcdcdc; padding: 1rem; border-radius: 6px; overflow-x: auto; }
+  code { font-family: "SF Mono", Consolas, "Liberation Mono", Menlo, monospace; }
+  .section { margin-bottom: 2rem; }
+  .meta { font-size: 0.9rem; color: #6b5e52; margin-bottom: 1rem; }
+  a { color: #4a8ec4; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .tags span { display: inline-block; background: #e8d5b7; color: #3a2f26; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.8rem; margin: 0.1rem; }
+</style>
+</head>
+<body>
+
+<h1>Histórico de Análise - Independência App</h1>
+<div class="meta">Criado: 2026-04-14 | Revisão posterior</div>
+
+<div class="section">
+  <h2>📌 Resumo da Requisição</h2>
+  <blockquote>
+    Criar um arquivo <code>PROJETO_SKILL.md</code> como “cérebro” do projeto SaaS <strong>Independência App</strong> — focado em arquitetura — para manter coesão entre sessões de IA ao usar o sistema Connect.
+  </blockquote>
+  <ul>
+    <li>Objetivo: documentar identidade da IA, stack técnica, regras de ouro, visão de produto e log de progresso.</li>
+    <li>Arquivo: <code>/app/PROJETO_SKILL.md</code></li>
+  </ul>
+</div>
+
+<div class="section">
+  <h2>🔧 Pergunta-chave do Usuário</h2>
+  <blockquote>
+    Analisar o arquivo <code>PROJETO_SKILL.md</code>, inspecionar a lógica do <code>floorPlanEngine.ts</code> e informar:
+    <ol>
+      <li>Parâmetros que ele usa para gerar as plantas.</li>
+      <li>Dividir em etapas (fases) o processo até entregar o produto.</li>
+      <li>Em que tipo de arquivo ele entrega a informação e qual função cria o arquivo.</li>
+    </ol>
+  </blockquote>
+</div>
+
+<div class="section">
+  <h2>📂 Estrutura do Projeto (apontada)</h2>
+  <pre><code>/app
+├── PROJETO_SKILL.md          &lt;- arquivo de contexto persistente
+├── src/
+│   ├── lib/
+│   │   ├── floorPlanEngine.ts    &lt;- motor de geração de plantas
+│   │   ├── store.ts              &lt;- estado do simulador (localStorage)
+│   │   └── types/index.ts        &lt;- tipos TypeScript
+│   ├── components/
+│   │   ├── Simulator/
+│   │   │   ├── SimulatorWizard.tsx
+│   │   │   └── Step3Terrain.tsx
+│   └── pages/
+│       └── SimulatorPage.tsx
+└── index.html</code></pre>
+</div>
+
+<div class="section">
+  <h2>📋 Parâmetros do floorPlanEngine.ts (generateFloorPlan)</h2>
+  <pre><code>export function generateFloorPlan(
+  rooms: Room[],
+  terrainWidth: number,
+  terrainDepth: number,
+  frontSetback: number,
+  sideSetback: number,
+  rearSetback: number,
+  _inventory: Furniture[] = [],
+  floorsRequested: number = 1,
+  concept: ArchConcept = 'l-shape'
+): FloorPlan</code></pre>
+  <ul>
+    <li><strong>rooms</strong>: lista de cômodos com quantidade, tipo, setor, acabamento, etc.</li>
+    <li><strong>terrainWidth / terrainDepth</strong>: dimensões do terreno em metros (10 x 25m)</li>
+    <li><strong>frontSetback / sideSetback / rearSetback</strong>: recuos obrigatórios (metros)</li>
+    <li><strong>_inventory</strong>: reservado para itens fixos/opcionais (não usado ativamente)</li>
+    <li><strong>floorsRequested</strong>: 1 = térreo; 2 = sobrado</li>
+    <li><strong>concept</strong>: estilo de planta (compact, l-shape, patio, linear, stepped, suspended, modules, hybrid, vertical, monolithic)</li>
+  </ul>
+</div>
+
+<div class="section">
+  <h2>🔄 Etapas sequenciais do processo (fases)</h2>
+  <ol>
+    <li><strong>Fase 1 — Núcleo Social</strong>
+      <ul>
+        <li>Seleciona o <code>living</code> como cômodo central</li>
+        <li>Cria <code>coreRect</code> com geometria base</li>
+      </ul>
+    </li>
+    <li><strong>Fase 2 — Serviços</strong>
+      <ul>
+        <li>Posiciona a <strong>garagem</strong> fixada à testada frontal</li>
+        <li>Adiciona outros cômodos de serviço com verificação de colisão</li>
+      </ul>
+    </li>
+    <li><strong>Fase 3 — Espinha/Jardim</strong>
+      <ul>
+        <li>Se há conceito de pátio/jardim, insere área central verde</li>
+        <li>Se for espinha linear, posiciona <code>corridor</code> como passagem</li>
+      </ul>
+    </li>
+    <li><strong>Fase 4 — Ala Íntima e Sobrados</strong>
+      <ul>
+        <li>Para 2 andares: escada no térreo, <code>transition</code> no piso 1, distribuição de quartos</li>
+        <li>Para 1 andar: algoritmo de colunas com <code>GRID_MAJOR</code> para evitar sobreposição</li>
+      </ul>
+    </li>
+    <li><strong>Fase 5 — Pixels (renderização)</strong>
+      <ul>
+        <li>Converte métricas para pixels (SCALE = 40 px/m)</li>
+        <li>Aplica setbacks, grade, texturas por setor</li>
+        <li>Desenha janelas, portas, mobiliário e legendas</li>
+      </ul>
+    </li>
+  </ol>
+</div>
+
+<div class="section">
+  <h2>📤 Formato de saída e função de criação</h2>
+  <h3>Tipo de arquivo / dado de saída</h3>
+  <ul>
+    <li><strong>Objeto serializável</strong> do tipo <code>FloorPlan</code>, pronto para ser convertido em JSON para persistência, relatórios ou envio ao cliente.</li>
+  </ul>
+  <pre><code>interface FloorPlan {
+  rooms: RoomRect[]
+  scale: number           // pixels por metro
+  canvasWidth: number
+  canvasHeight: number
+  valid: boolean
+  warnings: string[]
+  debugLogs: string[]     // LOG de progresso (caminho da IA)
+  score: number           // avaliação heurística (0–100)
+}</code></pre>
+
+  <h3>Função que desenha no Canvas (exibição visual)</h3>
+  <ul>
+    <li><strong>Nome:</strong> <code>renderFloorPlan</code></li>
+    <li><strong>Parâmetros:</strong> canvas, plan, dimensões do terreno, recuos, andar ativo, modo retrato/paisagem</li>
+    <li><strong>Função:</strong> dimensionar Canvas (DPR), aplicar rotação se paisagem, desenhar fundo, grade, terreno, recuos, setores, aberturas, portas, móveis, legendas, seta de entrada e norte técnico.</li>
+  </ul>
+</div>
+
+<div class="section">
+  <h2>🛠️ Correções implementadas (atualizações-chave)</h2>
+  <ul>
+    <li>Adicionada propriedade <code>environment</code> nas DEFAULT_ROOMS (tipo faltante)</li>
+    <li>Corrigida definição de <code>SectorType</code> incluindo valor <code>external</code></li>
+    <li>Adicionada verificação de colisão entre cômodos (<code>checkCollision</code>)</li>
+    <li>Melhorada distribuição de cômodos em ala íntima com fallback para nova coluna</li>
+    <li>Garantia de que área aproveitável não excede área total do terreno</li>
+    <li>Removidas variáveis não utilizadas para limpeza de código</li>
+  </ul>
+</div>
+
+<div class="section">
+  <h2>🔗 Links úteis</h2>
+  <ul>
+    <li><a href="/referencias/historioco_de_analise.html">Arquivo HTML (este)</a></li>
+    <li><a href="https://opencode.ai" target="_blank">Documentação OpenCode</a></li>
+  </ul>
+  <div class="tags">
+    <span>React</span>
+    <span>TypeScript</span>
+    <span>Canvas 2D</span>
+    <span>FloorPlan</span>
+    <span>Generator</span>
+  </div>
+</div>
+
+</body>
+</html>

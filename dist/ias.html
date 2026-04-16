@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IA Testing Hub - Dark Mode</title>
+    <style>
+        :root {
+            --bg-color: #0b0e14;
+            --card-bg: #161b22;
+            --text-primary: #e6edf3;
+            --text-secondary: #7d8590;
+            --accent-blue: #2f81f7;
+            --border-color: #30363d;
+            --neon-glow: 0 0 15px rgba(47, 129, 247, 0.4);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-color);
+            padding: 40px 20px;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        h1 {
+            color: var(--text-primary);
+            text-align: center;
+            font-weight: 600;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            font-size: 0.95rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 24px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-blue);
+            box-shadow: var(--neon-glow);
+        }
+
+        .card h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.2rem;
+            color: #fff;
+        }
+
+        .card p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .tag {
+            font-size: 0.65rem;
+            background: rgba(47, 129, 247, 0.15);
+            color: var(--accent-blue);
+            padding: 4px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            font-weight: bold;
+            border: 1px solid rgba(47, 129, 247, 0.3);
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        .btn {
+            display: block;
+            background: var(--accent-blue);
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-align: center;
+            transition: opacity 0.2s;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Cores especiais para destaques */
+        .deepseek {
+            border-bottom: 3px solid #27ae60;
+        }
+
+        .mistral {
+            border-bottom: 3px solid #e67e22;
+        }
+
+        .qwen {
+            border-bottom: 3px solid #8e44ad;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Nexus IA Hub</h1>
+    <p class="subtitle">20 modelos para testar a lógica do seu simulador <strong>Independência</strong></p>
+
+    <div class="grid">
+        <!-- Principais para Programação -->
+        <div class="card deepseek">
+            <span class="tag">Mais Recomendada</span>
+            <h3>DeepSeek V3</h3>
+            <p>Atualmente a melhor relação custo-benefício e lógica para React/Vite.</p>
+            <a href="https://deepseek.com" target="_blank" class="btn">Abrir Terminal</a>
+        </div>
+
+        <div class="card mistral">
+            <span class="tag">High Performance</span>
+            <h3>Mistral AI</h3>
+            <p>Modelo europeu com raciocínio limpo, ideal para refatoração de código.</p>
+            <a href="https://mistral.ai" target="_blank" class="btn">Abrir Chat</a>
+        </div>
+
+        <div class="card qwen">
+            <span class="tag">Open Source 2.5</span>
+            <h3>Qwen Coder</h3>
+            <p>Especialista em programação da Alibaba. Ótima com TypeScript.</p>
+            <a href="https://huggingface.co" target="_blank" class="btn">Testar via HF</a>
+        </div>
+
+        <div class="card">
+            <span class="tag">Agregador</span>
+            <h3>Poe.com</h3>
+            <p>Acesse Claude 3.5 e GPT-4o na mesma interface gratuitamente.</p>
+            <a href="https://poe.com" target="_blank" class="btn">Acessar Hub</a>
+        </div>
+
+        <div class="card">
+            <span class="tag">Visual UI</span>
+            <h3>Vercel V0</h3>
+            <p>Perfeita para gerar os componentes da sua planta baixa com Tailwind.</p>
+            <a href="https://v0.dev" target="_blank" class="btn">Gerar UI</a>
+        </div>
+
+        <div class="card">
+            <span class="tag">Real-time Search</span>
+            <h3>Perplexity</h3>
+            <p>Busca documentações atualizadas de bibliotecas em segundos.</p>
+            <a href="https://perplexity.ai" target="_blank" class="btn">Pesquisar Docs</a>
+        </div>
+
+        <div class="card">
+            <span class="tag">Super Speed</span>
+            <h3>Groq Cloud</h3>
+            <p>Incrível para respostas instantâneas usando Llama 3.1 70B.</p>
+            <a href="https://groq.com" target="_blank" class="btn">Executar</a>
+        </div>
+
+        <div class="card">
+            <span class="tag">Dev Focus</span>
+            <h3>Phind</h3>
+            <p>Um buscador feito por desenvolvedores para desenvolvedores.</p>
+            <a href="https://phind.com" target="_blank" class="btn">Phind It</a>
+        </div>
+
+        <!-- Adicione as outras conforme necessário no mesmo padrão -->
+        <div class="card">
+            <h3>Blackbox AI</h3>
+            <p>Sugestões de código em tempo real.</p><a href="https://blackbox.ai" class="btn">Link</a>
+        </div>
+        <div class="card">
+            <h3>Codeium</h3>
+            <p>IA gratuita para autocompletar código.</p><a href="https://codeium.com" class="btn">Link</a>
+        </div>
+        <div class="card">
+            <h3>LMSYS Arena</h3>
+            <p>Compare duas IAs simultaneamente.</p><a href="https://lmsys.org" class="btn">Link</a>
+        </div>
+        <div class="card">
+            <h3>DuckDuckGo AI</h3>
+            <p>Privacidade total no chat com GPT-4o.</p><a href="https://duckduckgo.com" class="btn">Link</a>
+        </div>
+        <div class="card">
+            <h3>You.com</h3>
+            <p>IA de busca técnica para bugs.</p><a href="https://you.com" class="btn">Link</a>
+        </div>
+        <div class="card">
+            <h3>Cody AI</h3>
+            <p>IA que entende o contexto do seu repositório.</p><a href="https://sourcegraph.com" class="btn">Link</a>
+        </div>
+        <div class="card">
+            <h3>Kimi</h3>
+            <p>Excelente para ler arquivos longos de código.</p><a href="https://moonshot.cn" class="btn">Link</a>
+        </div>
+        <div class="card">
+            <h3>OpenRouter</h3>
+            <p>Interface única para testar novos modelos.</p><a href="https://openrouter.ai" class="btn">Link</a>
+        </div>
+        <div class="card">
+            <h3>Together AI</h3>
+            <p>Playground para desenvolvedores testarem modelos.</p><a href="https://together.ai" class="btn">Link</a>
+        </div>
+        <div class="card">
+            <h3>Tabnine</h3>
+            <p>Assistente de IA local e seguro.</p><a href="https://tabnine.com" class="btn">Link</a>
+        </div>
+        <div class="card">
+            <h3>Pieces</h3>
+            <p>Gestão inteligente de snippets de código.</p><a href="https://pieces.app" class="btn">Link</a>
+        </div>
+        <div class="card">
+            <h3>Replit Ghost</h3>
+            <p>Ambiente de codificação online com IA.</p><a href="https://replit.com" class="btn">Link</a>
+        </div>
+    </div>
+
+</body>
+
+</html>

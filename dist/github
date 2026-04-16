@@ -1,0 +1,74 @@
+Encontrar projetos de código aberto ou discussões técnicas sobre automação de plantas arquitetônicas exige uma estratégia de busca que combine termos de engenharia de software com geometria computacional.
+
+Aqui estão as melhores formas de filtrar essas informações no GitHub e no Stack Overflow:
+
+1. No GitHub: Buscando Repositórios e Lógica
+O GitHub é ideal para encontrar o "esqueleto" do código. Como seu projeto envolve etapas específicas (estudo preliminar + lógica técnica + geração de PDF), use termos em inglês, que é o padrão da documentação técnica.
+
+Filtros por Tópicos (Topics)
+Em vez de apenas pesquisar na barra comum, busque por categorias consolidadas:
+
+topic:architecture-software
+
+topic:floor-plan-generator
+
+topic:procedural-generation
+
+topic:canvas-2d
+
+Termos de Busca Sugeridos
+Combine o objetivo com a tecnologia que você já utiliza (como React ou Canvas):
+
+"floor plan designer" react
+
+"automated floor plan" algorithm
+
+"house design" generator typescript
+
+"2d layout engine" javascript
+
+Dica de Ouro: Procure por projetos que usem bibliotecas de Geometria Computacional, como paper.js, fabric.js ou konva.js. Elas são a base para quase todos os simuladores de plantas 2D.
+
+2. No Stack Overflow: Resolvendo Problemas de Lógica
+O Stack Overflow não é para baixar projetos prontos, mas para entender como resolver a matemática por trás do seu simulador (ex: como evitar que paredes se sobreponham).
+
+Tags Essenciais
+Ao pesquisar, sempre verifique as perguntas dentro destas tags:
+
+[geometry]
+
+[canvas]
+
+[algorithm]
+
+[pdf-generation]
+
+Exemplos de Perguntas para Pesquisar
+"Algorithm to generate rooms from floor area"
+
+"Snap to grid 2d canvas floor plan"
+
+"Export html5 canvas to pdf with dimensions"
+
+3. Estruturando sua Busca pelo "Caminho"
+Como seu projeto tem uma sequência lógica, você pode quebrar a busca em três partes para encontrar códigos modulares:
+
+Parte A: Entrada de Dados (Estudo Preliminar)
+Busque por sistemas de "Form Wizards" ou "Decision Trees".
+
+Busca: form wizard react multi-step Survey
+
+Parte B: Lógica Técnica (Geração da Planta)
+Esta é a parte mais complexa. Procure por "Space Planning Algorithms" ou "Procedural House Generation".
+
+Muitos acadêmicos postam códigos no GitHub sobre "Automatic Floor Plan Generation from Requirements".
+
+Parte C: Saída (PDF)
+Para gerar o arquivo final com as medidas técnicas:
+
+Busca: jspdf canvas high resolution architecture ou react-pdf floorplan export.
+
+Onde mais olhar?
+Além desses dois, recomendo o "Awesome Architecture" no GitHub (uma lista curada de softwares de arquitetura open source) e o Reddit nos fóruns r/generative ou r/programming, onde desenvolvedores discutem a lógica de criação de ferramentas de design.
+
+Se encontrar um projeto que faça 50% do que você quer, já é um excelente ponto de partida para integrar com a sua visão de "A Independência - Hub".

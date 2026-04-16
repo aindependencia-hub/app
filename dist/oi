@@ -1,0 +1,120 @@
+Encontrar projetos de código aberto ou discussões técnicas sobre automação de plantas arquitetônicas exige uma estratégia de busca que combine termos de engenharia de software com geometria computacional.
+
+Aqui estão as melhores formas de filtrar essas informações no **GitHub** e no **Stack Overflow**:
+
+---
+
+## 1. No GitHub: Buscando Repositórios e Lógica
+O GitHub é ideal para encontrar o "esqueleto" do código. Como seu projeto envolve etapas específicas (estudo preliminar + lógica técnica + geração de PDF), use termos em inglês, que é o padrão da documentação técnica.
+
+### Filtros por Tópicos (Topics)
+Em vez de apenas pesquisar na barra comum, busque por categorias consolidadas:
+* `topic:architecture-software`
+* `topic:floor-plan-generator`
+* `topic:procedural-generation`
+* `topic:canvas-2d`
+
+### Termos de Busca Sugeridos
+Combine o objetivo com a tecnologia que você já utiliza (como React ou Canvas):
+* `"floor plan designer" react`
+* `"automated floor plan" algorithm`
+* `"house design" generator typescript`
+* `"2d layout engine" javascript`
+
+> **Dica de Ouro:** Procure por projetos que usem bibliotecas de **Geometria Computacional**, como `paper.js`, `fabric.js` ou `konva.js`. Elas são a base para quase todos os simuladores de plantas 2D.
+
+---
+
+## 2. No Stack Overflow: Resolvendo Problemas de Lógica
+O Stack Overflow não é para baixar projetos prontos, mas para entender como resolver a **matemática** por trás do seu simulador (ex: como evitar que paredes se sobreponham).
+
+### Tags Essenciais
+Ao pesquisar, sempre verifique as perguntas dentro destas tags:
+* `[geometry]`
+* `[canvas]`
+* `[algorithm]`
+* `[pdf-generation]`
+
+### Exemplos de Perguntas para Pesquisar
+* *"Algorithm to generate rooms from floor area"*
+* *"Snap to grid 2d canvas floor plan"*
+* *"Export html5 canvas to pdf with dimensions"*
+
+---
+
+## 3. Estruturando sua Busca pelo "Caminho"
+Como seu projeto tem uma sequência lógica, você pode quebrar a busca em três partes para encontrar códigos modulares:
+
+### Parte A: Entrada de Dados (Estudo Preliminar)
+Busque por sistemas de **"Form Wizards"** ou **"Decision Trees"**.
+* *Busca:* `form wizard react multi-step Survey`
+
+### Parte B: Lógica Técnica (Geração da Planta)
+Esta é a parte mais complexa. Procure por **"Space Planning Algorithms"** ou **"Procedural House Generation"**.
+* Muitos acadêmicos postam códigos no GitHub sobre "Automatic Floor Plan Generation from Requirements".
+
+### Parte C: Saída (PDF)
+Para gerar o arquivo final com as medidas técnicas:
+* *Busca:* `jspdf canvas high resolution architecture` ou `react-pdf floorplan export`.
+
+---
+
+## Onde mais olhar?
+Além desses dois, recomendo o **"Awesome Architecture"** no GitHub (uma lista curada de softwares de arquitetura open source) e o **Reddit** nos fóruns `r/generative` ou `r/programming`, onde desenvolvedores discutem a lógica de criação de ferramentas de design.
+
+Se encontrar um projeto que faça 50% do que você quer, já é um excelente ponto de partida para integrar com a sua visão de "A Independência - Hub".
+
+
+Para facilitar seu fluxo de trabalho, estruturei uma **"Skill de Pesquisa Técnica"**. Você pode copiar o bloco abaixo e salvar no seu bloco de notas ou nas instruções personalizadas da sua IA.
+
+Sempre que você quiser que eu (ou qualquer IA) faça essa varredura para você, basta colar o comando inicial.
+
+-----
+
+## 🛠️ Skill: Scout Arquitetônico (Busca de Código & Lógica)
+
+### 1\. O Comando de Ativação (Prompt)
+
+> *"Ative a Skill de Pesquisa Técnica para o projeto de Simulador Arquitetônico 2D. Preciso de referências de código e discussões em fóruns sobre a etapa de [Inserir Etapa: ex: Geração Automática de Paredes]. Procure no GitHub, Stack Overflow e Reddit, trazendo links diretos e termos de busca utilizados."*
+
+### 2\. Estrutura de Varredura (O que a IA deve buscar)
+
+Para garantir que a IA traga resultados úteis, ela seguirá estes parâmetros de busca avançada:
+
+#### **A. No GitHub (Repositórios e Algoritmos)**
+
+  * **Query:** `(floor-plan OR architectural-layout) AND (generator OR simulator) AND (canvas OR svg) language:typescript`
+  * **Filtro:** Repositórios com mais de 50 estrelas para garantir código estável.
+  * **Foco:** Bibliotecas de arrastar e soltar (drag-and-drop) e motores de renderização 2D.
+
+#### **B. No Stack Overflow (Lógica Matemática)**
+
+  * **Query:** `[geometry] "floor plan" OR "room layout" algorithm`
+  * **Foco:** Como calcular áreas, detecção de colisão de paredes e conversão de coordenadas para escala real (1:50, 1:100).
+
+#### **C. No Reddit (Comunidades de Devs)**
+
+  * **Subreddits:** `r/generative`, `r/webdev`, `r/computergraphics`.
+  * **Query:** *"building a floor plan creator"* ou *"automated architectural layout software"*.
+
+-----
+
+## 🔗 Links Diretos para Você Monitorar
+
+Se você quiser pesquisar manualmente de forma rápida, aqui estão os links prontos com os filtros aplicados:
+
+  * **GitHub (Projetos em JS/TS):** [Pesquisar Projetos de Planta 2D](https://www.google.com/search?q=https://github.com/search%3Fq%3Dfloor%2Bplan%2Beditor%2Blanguage%253ATypescript%26type%3Drepositories)
+  * **Stack Overflow (Problemas Geométricos):** [Dúvidas sobre Algoritmos de Arquitetura](https://www.google.com/search?q=https://stackoverflow.com/questions/tagged/geometry%2Bfloor-plan)
+  * **Reddit (Discussões Técnicas):** [Busca por 'Floor Plan' no r/programming](https://www.google.com/search?q=https://www.reddit.com/r/programming/search/%3Fq%3Dfloor%2Bplan%2Balgorithm)
+
+-----
+
+## 💡 Como essa Skill ajuda seu projeto?
+
+Ao usar essa abordagem, você pula a fase de "tentativa e erro" na programação:
+
+1.  **Estudo Preliminar:** Você encontra como outros devs validaram dados de clientes (input de área, número de moradores).
+2.  **Parte Técnica:** Você descobre se é melhor usar `Canvas API` pura ou uma biblioteca como `Konva.js`.
+3.  **PDF:** Você encontra scripts prontos que convertem o desenho da tela em um PDF técnico com as medidas exatas.
+
+**Dica:** Quando você usar essa skill comigo, eu vou priorizar ferramentas que se conectem bem com **Vite e React**, que é a base que você já está explorando para o simulador.

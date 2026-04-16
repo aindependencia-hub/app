@@ -1,0 +1,131 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 36 30% 96%;
+    --foreground: 25 15% 12%;
+    --card: 36 30% 98%;
+    --card-foreground: 25 15% 12%;
+    --popover: 36 30% 98%;
+    --popover-foreground: 25 15% 12%;
+    --primary: 32 35% 65%;
+    --primary-foreground: 25 15% 12%;
+    --secondary: 36 30% 90%;
+    --secondary-foreground: 25 15% 12%;
+    --muted: 36 20% 88%;
+    --muted-foreground: 25 10% 45%;
+    --accent: 32 40% 70%;
+    --accent-foreground: 25 15% 12%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 32 20% 82%;
+    --input: 32 20% 82%;
+    --ring: 32 35% 65%;
+    --radius: 0.5rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-creme text-escuro font-body;
+    font-family: 'DM Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cormorant Garamond', serif;
+  }
+}
+
+@layer components {
+  /* Botão primário dourado */
+  .btn-primary {
+    @apply bg-dourado text-escuro px-6 py-3 rounded-sm font-body font-medium
+           hover:bg-dourado-dark hover:text-creme transition-all duration-300
+           active:scale-95 shadow-md;
+  }
+
+  /* Botão secundário (outline) */
+  .btn-secondary {
+    @apply border border-dourado text-escuro px-6 py-3 rounded-sm font-body font-medium
+           hover:bg-dourado hover:text-escuro transition-all duration-300;
+  }
+
+  /* Card premium */
+  .card-premium {
+    @apply bg-white/80 backdrop-blur-sm border border-dourado/20 rounded-sm
+           shadow-[0_2px_20px_rgba(200,168,130,0.1)] p-6;
+  }
+
+  /* Step indicator ativo */
+  .step-active {
+    @apply bg-dourado text-escuro;
+  }
+
+  /* Step indicator completo */
+  .step-done {
+    @apply bg-escuro text-creme;
+  }
+
+  /* Step indicator inativo */
+  .step-inactive {
+    @apply bg-muted text-muted-foreground;
+  }
+
+  /* Input estilizado */
+  .input-indep {
+    @apply w-full border border-dourado/30 bg-white/60 rounded-sm px-3 py-2
+           text-escuro placeholder:text-muted-foreground
+           focus:outline-none focus:ring-2 focus:ring-dourado/40 focus:border-dourado
+           transition-all duration-200;
+  }
+
+  /* Setor badge */
+  .badge-social { @apply bg-social text-escuro text-xs px-2 py-0.5 rounded-sm; }
+  .badge-private { @apply bg-privado text-escuro text-xs px-2 py-0.5 rounded-sm; }
+  .badge-service { @apply bg-servico text-escuro text-xs px-2 py-0.5 rounded-sm; }
+
+  /* Alert */
+  .alert-error { @apply bg-red-50 border-l-4 border-red-400 text-red-800 p-3 rounded-sm text-sm; }
+  .alert-warning { @apply bg-amber-50 border-l-4 border-amber-400 text-amber-800 p-3 rounded-sm text-sm; }
+  .alert-info { @apply bg-blue-50 border-l-4 border-blue-400 text-blue-800 p-3 rounded-sm text-sm; }
+}
+
+@layer utilities {
+  /* Animação de entrada */
+  .animate-fade-up {
+    animation: fade-up 0.4s ease-out both;
+  }
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Gradiente dourado */
+  .gradient-gold {
+    background: linear-gradient(135deg, #C8A882 0%, #E0C9A6 50%, #C8A882 100%);
+  }
+
+  /* Glassmorphism */
+  .glass {
+    @apply bg-white/30 backdrop-blur-md border border-white/40;
+  }
+
+  /* Divisor ornamental */
+  .ornament::before,
+  .ornament::after {
+    content: '—  ✦  —';
+    @apply text-dourado/60 text-xs;
+  }
+
+  /* Scrollbar estilizada */
+  .styled-scroll::-webkit-scrollbar { width: 6px; }
+  .styled-scroll::-webkit-scrollbar-track { @apply bg-creme; }
+  .styled-scroll::-webkit-scrollbar-thumb { @apply bg-dourado/40 rounded-full; }
+}

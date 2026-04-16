@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pesquisa — Floor Plan Editor / 2D Architectural Sim</title>
+<style>
+  body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; line-height: 1.8; padding: 2rem; max-width: 900px; margin: auto; color: #1e1e1e; background: #fafafa; }
+  h1, h2, h3 { color: #2c2420; }
+  h1 { border-bottom: 2px solid #d4c8a0; padding-bottom: 0.5rem; }
+  blockquote { background: #fff; border-left: 4px solid #d4c8a0; padding: 1rem 1.5rem; margin: 1rem 0; font-style: italic; color: #4e4238; }
+  pre { background: #1e1e1e; color: #dcdcdc; padding: 1rem; border-radius: 6px; overflow-x: auto; }
+  code { font-family: "SF Mono", Consolas, "Liberation Mono", Menlo, monospace; }
+  .tags span { display: inline-block; background: #e8d5b7; color: #3a2f26; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.8rem; margin: 0.1rem; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.95rem; }
+  th, td { border: 1px solid #c4b5a8; padding: 0.6rem 1rem; text-align: left; }
+  th { background: #e8d5b7; }
+  a { color: #4a8ec4; }
+  .mono { font-family: "SF Mono", Consolas, monospace; }
+</style>
+</head>
+<body>
+
+<h1>Pesquisa — Floor Plan Editor / 2D Architectural Sim</h1>
+<div class="meta">Versão 1.0 — registrando os principais tópicos da conversa e da investigação técnica</div>
+
+<h2>Contexto do Projeto</h2>
+<blockquote>
+  Simulador Arquitetônico (Hub de Independência): gerador de plantas 2D baseado em Canvas 2D, React 18 + Vite + TypeScript; lógica geométrica separada da renderização; restrições de terreno 10x25m, recuos, setores, colisão, prefeitura, algoritmo de conexão social → câmaras → íntima.
+</blockquote>
+
+<h2>Requisito Inicial</h2>
+<blockquote>
+  Criar arquivo <code>PROJETO_SKILL.md</code> como "cérebro" do projeto para manter coesão entre sessões de IA ao usar o sistema Connect (identidade da IA, stack, regras de ouro, visão de produto, log de progresso).
+</blockquote>
+
+<h2>Stack Técnica Base (package.json)</h2>
+<pre><code>React 18 + Vite + TypeScript
+UI: Radix UI, Lucide React, Tailwind CSS (bibliotecas de animação e merge)
+Roteamento: React Router DOM
+Scripts: npm run dev (dev), tsc && vite build (build)
+Canvas 2D para renderização de plantas
+Separação rigorosa: lógica geométrica vs. visual
+TypeScript com tipagem rigorosa, mas simples
+Priorizar ferramentas free-tier/open-source
+Focar em performance para rodar no navegador
+</code></pre>
+
+<h2>Arquitetura do motor floorPlanEngine.ts (pontos-chave)</h2>
+<table>
+  <tr><th>Etapa</th><th>Resumo da responsabilidade</th></tr>
+  <tr><td>Fase 1 — Núcleo Social</td><td>Seleciona o living como núcleo; cria coreRect (largura ajustada por conceito)</td></tr>
+  <tr><td>Fase 2 — Serviços</td><td>Posiciona a garagem ancorada à testada frontal; distribui outros serviços com verificação de colisão</td></tr>
+  <tr><td>Fase 3 — Espinha / Jardim</td><td>Insere pátio/jardim central ou corridor espinha; define floor=0</td></tr>
+  <tr><td>Fase 4 — Ala Íntima e Sobrados</td><td>2 andares: escada no térreo, transition hall superior, distribuição de quartos; 1 andar: grid major com colisão e fallback para novas colunas</td></tr>
+  <tr><td>Fase 5 — Pixels (renderização)</td><td>Conversão métricas → pixels (SCALE=40), aplica setbacks, grades, texturas, desenha janelas/portas/móveis, legendas, norte, escala</td></tr>
+</table>
+
+<h2>Parâmetros principais de generateFloorPlan</h2>
+<pre><code>rooms: Room[]
+terrainWidth: number (metros)
+terrainDepth: number (metros)
+frontSetback: number (m)
+sideSetback: number (m)
+rearSetback: number (m)
+_inventory: Furniture[] (opcional)
+floorsRequested: number (1 ou 2)
+concept: ArchConcept (compact | l-shape | patio | linear | stepped | suspended | modules | hybrid | vertical | monolithic)
+</code></pre>
+
+<h2>Saída (FloorPlan)</h2>
+<pre><code>interface FloorPlan {
+  rooms: RoomRect[]
+  scale: number           // pixels por metro
+  canvasWidth: number
+  canvasHeight: number
+  valid: boolean
+  warnings: string[]
+  debugLogs: string[]     // LOG de progresso da IA
+  score: number           // avaliação heurística 0–100
+}</code></pre>
+
+<h2>Funções de renderização e criação de arquivo</h2>
+<ul>
+  <li><strong>renderFloorPlan</strong> — desenha no Canvas 2D; parâmetros: canvas, plan, dimensões do terreno, recuos, andar ativo, portrait/landscape; cuida de DPR, rotação, grades, setores, aberturas, portas, móveis, legendas, seta de entrada e norte.</li>
+  <li><strong>Arquivo de saída</strong> — objeto <code>FloorPlan</code> (serializável) retornado por <code>generateFloorPlan</code>. Pode ser serializado para JSON para persistência ou envio; a renderização visual é feita via <code>renderFloorPlan</code> no Canvas (não cria imagem automaticamente — salva-se o canvas como PNG ou usa toDataURL para exportar).</li>
+</ul>
+
+<h2>Correções implementadas</h2>
+<table>
+  <tr><th>Problema</th><th>Solução</th></tr>
+  <tr><td>Coordenadas inconsistentes</td><td>Ajustado offset no rendering; origem considera terrenoStartX/Y</td></tr>
+  <tr><td>Sobreposição de cômodos</td><td>Adicionada checkCollision; reposicionamento automático para serviços e ala íntima</td></tr>
+  <tr><td>Propriedade `environment` faltante</td><td>Inserida em DEFAULT_ROOMS e tipos</td></tr>
+  <tr><td>Tipos incompletos</td><td>Corrigidas referências a SectorType e RoomRect (incluído floor)</td></tr>
+  <tr><td>Variáveis não utilizadas</td><td>Removidas (ex: ADJACENCY_RULES, shuffleArray, frontSetback no drawLandscape)</td></tr>
+  <tr><td>Colisão e layout</td><td>Grid major + fallback para nova coluna; respeito a recuos e limites do terreno 10x25m</td></tr>
+</table>
+
+<h2>Lições para o Hub de Independência</h2>
+<ul>
+  <li>Manter lógica geométrica pura (snapToGrid, checkCollision) desacoplada da renderização Canvas.</li>
+  <li>Usar requestAnimationFrame e dirty-rectangles para cenas complexas; considerar offscreen canvas para camadas estáticas.</li>
+  <li>Estruturar stores com localStorage (ou IndexedDB para grandes projetos) para persistência de estado.</li>
+  <li>Normalizar unidades: metros para modelagem, pixels para renderização, com SCALE configurável.</li>
+  <li>Validar entradas do cliente (terreno, recuos) antes de gerar a planta; forneça warnings claros.</li>
+</ul>
+
+<h2>Próximos passos sugeridos</h2>
+<ol>
+  <li>Buscar publicamente por repositórios GitHub com keywords: "floor plan editor react canvas", "room layout generator typescript", "architectural sim canvas react".</li>
+  <li>Investigar Wikis/GitBooks de projetos similares (ex: react-canvas-draft-board, exemplos de level editors 2D).</li>
+  <li>Preencher tabelas comparativas de renderização, otimizações (FPS, memória) e abordagens de layout não-overlap.</li>
+  <li>Exportar canvas como PNG (toDataURL) ou SVG para exportação de planta; considerar salvar o estado FloorPlan JSON para reabertura.</li>
+  <li>Ajustar refinamentos de UX: desfazer/refazer, camadas (paredes, móveis, aberturas), medidas sobrepor.</li>
+</ol>
+
+<h2>Arquivos-chave do projeto</h2>
+<pre><code>/app
+├── PROJETO_SKILL.md          # contexto persistente (identidade, stack, regras, log)
+├── public/
+│   ├── index.html
+│   └── pesquisa.pdf          # este documento (busca e descobertas)
+├── src/
+│   ├── lib/
+│   │   ├── floorPlanEngine.ts    # motor principal
+│   │   ├── store.ts              # estado + localStorage
+│   │   └── types/index.ts        # tipos TypeScript
+│   ├── components/
+│   │   ├── Simulator/
+│   │   │   ├── SimulatorWizard.tsx
+│   │   │   └── Step3Terrain.tsx
+│   │   └── ...
+│   └── pages/
+│       └── SimulatorPage.tsx
+└── dist/                        # build estático (Vite)
+</code></pre>
+
+<hr>
+<div class="tags">
+  <span>React</span>
+  <span>TypeScript</span>
+  <span>Canvas 2D</span>
+  <span>FloorPlan</span>
+  <span>Generator</span>
+  <span>Architecture</span>
+</div>
+
+</body>
+</html>

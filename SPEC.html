@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Independência Simulator - Memorial Descritivo Técnico</title>
+    <style>
+        body { font-family: 'Inter', system-ui, -apple-system, sans-serif; line-height: 1.6; color: #333; max-width: 1000px; margin: 0 auto; padding: 40px; background: #f9f9f9; }
+        h1 { color: #1a1714; border-bottom: 3px solid #8b6f47; padding-bottom: 10px; }
+        h2 { color: #8b6f47; margin-top: 40px; border-left: 5px solid #8b6f47; padding-left: 15px; }
+        h3 { color: #2c2420; background: #eee7dc; padding: 8px 15px; border-radius: 4px; }
+        .update-box { background: #fff; border: 1px solid #ddd; padding: 20px; border-radius: 8px; margin: 20px 0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .ia-update { border-left: 5px solid #4a8ec4; background: #f0f7ff; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; background: #fff; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background: #8b6f47; color: white; }
+        .tech-note { font-family: 'DM Mono', monospace; font-size: 0.9em; color: #666; }
+        .highlight { color: #d35400; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <h1>Independência Simulator: Memorial Descritivo</h1>
+    <p>Este documento consolida todas as regras de negócio, parâmetros técnicos e lógicas de arquitetura implementadas no simulador residencial.</p>
+
+    <div class="update-box">
+        <h2>1. Visão Geral e Conceito Social</h2>
+        <p>O simulador <strong>Independência</strong> visa permitir que usuários planejem sua casa (térrea ou sobrado) com foco absoluto na funcionalidade e aproveitamento de espaço, adequando mobiliário novo ou existente a uma estrutura técnica profissional.</p>
+    </div>
+
+    <h2>2. Parâmetros de Implantação e Urbanismo</h2>
+    <div class="update-box">
+        <h3>2.1. O Cenário Urbano</h3>
+        <ul>
+            <li><strong>Rua (Via Pública):</strong> Renderizada com largura de 7.00m (asfalto).</li>
+            <li><strong>Calçada Obrigatória (Passeio):</strong> Faixa de 2.50m. <em>Nota: Integrada ao desenho mas externa ao limite edificável.</em></li>
+            <li><strong>Recuo Frontal Obrigatório:</strong> Mínimo de 5.00m a partir do alinhamento predial.</li>
+            <li><strong>Vizinhos:</strong> Lotes laterais e fundos representados como áreas privadas (cinza neutro).</li>
+        </ul>
+        <h3>2.2. Orientação Solar (Bússola)</h3>
+        <p>O simulador exige a presença de uma bússola de Norte magnético para orientar a posição das janelas (preferencialmente Leste para quartos).</p>
+    </div>
+
+    <h2>3. Lógica de Ociosidade Zero (Furniture-First)</h2>
+    <div class="update-box">
+        <p class="highlight">REGRA DE OURO: O cômodo deve ser dimensionado apenas para caber o móvel + a circulação. Sem espaços vazios inúteis.</p>
+        <h3>3.1. Fórmula de Dimensionamento</h3>
+        <p class="tech-note">Largura da Parede = Largura do Mobiliário (ou soma de itens) + 1.20m (60cm de cada lado para fluxo).</p>
+        <table>
+            <tr>
+                <th>Ambiente</th>
+                <th>Dimensão Mínima Técnica</th>
+                <th>Lógica de Escala</th>
+            </tr>
+            <tr>
+                <td>Sala de Estar</td>
+                <td>3.00m (Largura) / 10.00m²</td>
+                <td>Distância sofá-TV mín. 1.50m</td>
+            </tr>
+            <tr>
+                <td>Suíte Principal</td>
+                <td>2.50m (Largura) / 9.00m²</td>
+                <td>Circulação de 0.60m nas 3 faces da cama</td>
+            </tr>
+            <tr>
+                <td>Banheiro</td>
+                <td>1.10m (Largura) / 2.80m²</td>
+                <td>Pintura/Vaso com 60cm livre à frente</td>
+            </tr>
+            <tr>
+                <td>Garagem</td>
+                <td>3.00m (Largura) / 15.00m²</td>
+                <td>Adequada ao comprimento do veículo Corolla (4.65m)</td>
+            </tr>
+        </table>
+    </div>
+
+    <h2>4. Fluxo de Circulação (DNA da Casa)</h2>
+    <div class="update-box">
+        <p>O software impõe um fluxo lógico de circulação para garantir a funcionalidade residencial:</p>
+        <ol>
+            <li><strong>Entrada Principal:</strong> Rua &rarr; Calçada &rarr; Garagem/Social.</li>
+            <li><strong>Cadeia Social-Serviço:</strong> Garagem &harr; Sala de Estar &rarr; Cozinha &rarr; Área de Serviço.</li>
+            <li><strong>Cadeia Social-Privada:</strong> Sala de Estar &rarr; Corredor de Distribuição &rarr; Dormitórios/Banheiros.</li>
+        </ol>
+        <p><strong>Conectividade:</strong> Portas devem ser posicionadas para evitar interruptores no verso da folha e garantir passagem limpa de 80cm.</p>
+    </div>
+
+    <h2>5. Representação Técnica (NBR 6492)</h2>
+    <div class="update-box">
+        <h3>5.1. Pesos de Linha (Hierarquia)</h3>
+        <ul>
+            <li><strong>Linha Grossa (4px):</strong> Paredes em corte (plano de 1.50m).</li>
+            <li><strong>Linha Média (2px):</strong> Esquadrias (portas/janelas) e mobiliário fixo.</li>
+            <li><strong>Linha Fina (1px):</strong> Mobiliário móvel, cotas e texturas de piso.</li>
+            <li><strong>Linha Tracejada:</strong> Projeções acima do corte e janelas Maxim-ar (banheiros).</li>
+        </ul>
+        <h3>5.2. Simbologia Implementada</h3>
+        <ul>
+            <li><strong>Nível do Piso (N.P.):</strong> Indicação de solo (ex: +0.10m).</li>
+            <li><strong>Abertura de Portas:</strong> Arco tracejado indicando o raio de varredura.</li>
+            <li><strong>Hachura de Áreas Molhadas:</strong> Grid simbolizando piso cerâmico em Cozinhas e Banheiros.</li>
+        </ul>
+    </div>
+
+    <h2>6. Seção: Inventário "Estou de Mudança"</h2>
+    <div class="update-box">
+        <p>Permite a integração de móveis reais que o usuário já possui (Âncoras de Projeto):</p>
+        <ul>
+            <li><strong>Móvel Existente [EX]:</strong> Renderizado com destaque visual e dimensões imutáveis.</li>
+            <li><strong>Check de Conflito:</strong> O sistema bloqueia a redução de paredes que impeçam o encaixe desses objetos.</li>
+            <li><strong>Deduplicação:</strong> Se um item [EX] existe, o simulador remove a sugestão de móvel novo equivalente.</li>
+        </ul>
+    </div>
+
+    <h2>7. Biblioteca de Mobiliário de Mercado (Ref. Atualização 4)</h2>
+    <div class="update-box">
+        <table>
+            <tr>
+                <th>Item</th>
+                <th>Dimensão (L x P)</th>
+                <th>Aplicação</th>
+            </tr>
+            <tr>
+                <td>Cama Queen Size</td>
+                <td>1.58m x 1.98m</td>
+                <td>Quarto Casal / Suíte</td>
+            </tr>
+            <tr>
+                <td>Sofá 3 Lugares</td>
+                <td>2.10m x 0.90m</td>
+                <td>Sala de Estar</td>
+            </tr>
+            <tr>
+                <td>Geladeira Duplex</td>
+                <td>0.70m x 0.75m</td>
+                <td>Cozinha</td>
+            </tr>
+            <tr>
+                <td>Máquina de Lavar</td>
+                <td>0.60m x 0.65m</td>
+                <td>Lavanderia</td>
+            </tr>
+            <tr>
+                <td>Veículo Corolla</td>
+                <td>1.80m x 4.65m</td>
+                <td>Garagem</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="update-box ia-update">
+        <h2>8. Atualização 5: Consolidação Técnica (IA Antigravity)</h2>
+        <p>Implementação final dos algoritmos de automação arquitetônica:</p>
+        <ul>
+            <li><strong>Massa Única (Anchoring):</strong> Eliminação de frestas entre setores. A casa agora é gerada como um polígono sólido contínuo.</li>
+            <li><strong>Proteção de Passagem:</strong> Bloqueio de mobiliário em raio de 1.20m à frente das portas para garantir fluxo livre.</li>
+            <li><strong>Otimização "Shrink-Wrap":</strong> As paredes agora se ajustam automaticamente ao somatório da largura dos móveis + gaps técnicos, eliminando qualquer área de ociosidade central.</li>
+            <li><strong>Rampa de Veículos Técnica:</strong> Projeção sutil da garagem até a rua, cruzando calçada e recuo com indicação de fluxo.</li>
+        </ul>
+    </div>
+
+    <p style="text-align: center; color: #999; font-size: 0.8em; margin-top: 50px;">
+        Documento gerado automaticamente pelo Independência Simulator Engine.<br>
+        Referência técnica: NBR 6492 / NBR 15575 / Código de Obras Residencial.
+    </p>
+
+</body>
+</html>
